@@ -11,71 +11,87 @@ Boolean BAD_AA3 = false;
 Boolean BAD_AA4 = false;
 Boolean BAD_AA5 = false;
 Boolean BAD_AA6 = false;
+Boolean book_C = true;
 
 void keyPressed() {
   switch (key) {
   case '1':
+    g_background = color(0, 0, 0);
     g_current_file = new String("i1.cli");
     interpreter();
     break;
   case '2':
+    g_background = color(0, 0, 0);
     g_current_file = new String("i10.cli");
     interpreter();
     break;
   case '3':
+    g_background = color(0, 0, 0);
     g_current_file = new String("i2.cli");
     interpreter();
     break;
   case '4':
+    g_background = color(0, 0, 0);
     g_current_file = new String("i3.cli");
     interpreter();
     break;
   case '5':
+    g_background = color(0, 0, 0);
     g_current_file = new String("i4.cli");
     interpreter();
     break;
   case '6':
+    g_background = color(0, 0, 0);
     g_current_file = new String("i5.cli");
     interpreter();
     break;
   case '7':
+    g_background = color(0, 0, 0);
     g_current_file = new String("i6.cli");
     interpreter();
     break;
   case '8':
+    g_background = color(0, 0, 0);
     g_current_file = new String("i7.cli");
     interpreter();
     break;
   case '9':
+    g_background = color(0, 0, 0);
     g_current_file = new String("i8.cli");
     interpreter();
     break;
   case '0':
+    g_background = color(0, 0, 0);
     g_current_file = new String("i9.cli");
     interpreter();
     break;
   case 'a':
+    g_background = color(0, 0, 0);
     BAD_AA1 = true;
     BAD_AA2 = false;
     interpreter();
     break;
   case 'b':
+    g_background = color(0, 0, 0);
     BAD_AA1 = true;
     BAD_AA2 = true;
     interpreter();
     break;
   case 'c':
+    g_background = color(0, 0, 0);
     BAD_AA1 = false;
     BAD_AA2 = false;
     interpreter();
     break;
   case 'd':
+    g_background = color(0, 0, 0);
     BAD_AA1 = true;
     BAD_AA2 = true;
     BAD_AA3 = true;
     interpreter();
     break;
   case 'e':
+    g_background = color(0, 0, 0);
     BAD_AA1 = true;
     BAD_AA2 = true;
     BAD_AA3 = true;
@@ -83,6 +99,7 @@ void keyPressed() {
     interpreter();
     break;
   case 'f':
+    g_background = color(0, 0, 0);
     BAD_AA1 = true;
     BAD_AA2 = true;
     BAD_AA3 = true;
@@ -91,12 +108,27 @@ void keyPressed() {
     interpreter();
     break;
   case 'g':
+    g_background = color(0, 0, 0);
     BAD_AA1 = true;
     BAD_AA2 = true;
     BAD_AA3 = true;
     BAD_AA4 = true;
     BAD_AA5 = true;
     BAD_AA6 = true;
+    interpreter();
+    break;
+  case 'h':
+    g_background = color(0, 0, 0);
+    book_C = false;
+    interpreter();
+    break;
+  case 'i':
+    g_background = color(0, 0, 0);
+    book_C = true;
+    interpreter();
+    break;
+  case 'w':
+    g_background = color(1.0, 1.0, 1.0);
     interpreter();
     break;
   }
@@ -109,7 +141,6 @@ void interpreter() {
 
   g_surfaces = new ArrayList<Surface>();
   g_lights = new ArrayList<Light>();
-  g_background = color(0, 0, 0);
 
   boolean dontshoot = false;
 
@@ -249,17 +280,17 @@ void shootrays() {
         if (c1 != c9 || c2 != c9 || c3 != c9 || c4 != c9 || c5 != c9 ||
             c6 != c9 || c7 != c9 || c8 != c9) {
 
-        /*
-        if (c1 != g_background &&
-            c2 != g_background &&
-            c3 != g_background &&
-            c4 != g_background &&
-            c5 != g_background &&
-            c6 != g_background &&
-            c7 != g_background &&
-            c8 != g_background &&
-            c9 != g_background) break;
-         */
+
+          if (c1 != g_background &&
+              c2 != g_background &&
+              c3 != g_background &&
+              c4 != g_background &&
+              c5 != g_background &&
+              c6 != g_background &&
+              c7 != g_background &&
+              c8 != g_background &&
+              c9 != g_background) break;
+
 
           if (c8 != c9 && true)
             set(x, y,
@@ -710,21 +741,30 @@ public class Ray {
       if (!shadow_hit) {
         float[] h = Hat(ElementWise(Hat(l), Hat(d()), '-'));
 
-        // book: C = Ca + CrCl max(0, n . l) + ClCp (h . n)^p
-        C = ElementWise(C,
-                        ElementWise(ElementWise(ElementWise(Cr, Cl, '*'),
-                                                max(0, Dot(n, l)), '*'),
-                                    ElementWise(ElementWise(Cl, Cp, '*'),
-                                                pow(Dot(h, n), phong), '*'),
-                                    '+'),
-                        '+');
+        if (book_C) {
+          // book: C = Ca + CrCl max(0, n . l) + ClCp (h . n)^p
+          C = ElementWise(C,
+                          ElementWise(ElementWise(ElementWise(Cr, Cl, '*'),
+                                                  max(0, Dot(n, l)), '*'),
+                                      ElementWise(ElementWise(Cl, Cp, '*'),
+                                                  pow(Dot(h, n), phong), '*'),
+                                      '+'),
+                          '+');
+        } else {
 
-        // notes: C = Ca _ CrCl max(0, n . l) + ClCp (max(0, e . r))^p
-        // C =  ElementWise(C, ElementWise( ElementWise( ElementWise(Cr, Cl,
-        // '*'), max(0, Dot(n, l)), '*'),
-        //                                  ElementWise( ElementWise(Cl, Cp,
-        //                                  '*'), pow(max(0, Dot(e, r)), phong),
-        //                                  '*'), '+'), '+');
+          // notes: C = Ca _ CrCl max(0, n . l) + ClCp (max(0, e . r))^p
+          float[] e = h;
+          float[] r = n;
+
+          C = ElementWise(
+              C,
+              ElementWise(
+                  ElementWise(ElementWise(Cr, Cl, '*'), max(0, Dot(n, l)), '*'),
+                  ElementWise(ElementWise(Cl, Cp, '*'),
+                              pow(max(0, Dot(e, r)), phong), '*'),
+                  '+'),
+              '+');
+        }
       }
     }
 
