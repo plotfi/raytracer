@@ -1,0 +1,9 @@
+# one green sphere, diffuse and ambient
+
+fov 60
+light 1 1 1 8 0 0
+
+surface   0 0 0   0 0.5 0   0 0 0   1  0
+sphere  0 0 -4 1
+
+write i2.png

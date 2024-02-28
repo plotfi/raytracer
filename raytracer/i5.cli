@@ -1,0 +1,34 @@
+# colored lights
+
+fov 60
+
+# blue background
+
+background .5 .5 .8
+
+# one light
+
+light  .7 .7 .7  4 4 8
+
+# sphere
+
+surface  .2 .2 .2  .1 .1 1  0 0 0  1  0
+sphere  -1.5 -1.5 -6  1
+
+# sphere
+
+surface  .2 .2 .2  .1 1 .1  0 0 0  1  0
+sphere  1.5 1.5 -6  1
+
+# cylinder
+
+surface  .2 .2 .2  1 1 1  0 0 0  1  0
+cylinder  1   1.5 -6  -2.5 -0.5
+
+# cylinder
+
+surface  .2 .2 .2  1 .1 .1  0 0 0  1  0
+cylinder  1   -1.5 -6  0.5 2.5
+
+write i5.png
+

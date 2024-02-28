@@ -1,0 +1,26 @@
+# colored lights
+
+fov 60
+
+# blue background
+
+background 0.2 0.2 1
+
+# three light sources (red, green, blue)
+
+light  .8 .2 .2  3 4  0
+light  .2 .8 .2 -3 4  0
+light  .2 .2 .8  0 4 -5
+
+# this cylinder acts as a ground plane
+
+surface  .2 .2 .2  .8 .8 .8  0 0 0  1  0
+cylinder 10  0 0  -2 -1
+
+# shadow-casting sphere
+
+surface  .2 .2 .2  .8 .8 .8  0 0 0  1  0
+sphere  0 0.5 -3  1
+
+write i6.png
+
