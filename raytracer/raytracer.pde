@@ -5,6 +5,12 @@ ArrayList<Surface> g_surfaces = null;
 ArrayList<Light> g_lights = null;
 float g_fov = 0;
 ArrayList<Point> g_polygon_vertices = null;
+Boolean BAD_AA1 = false;
+Boolean BAD_AA2 = false;
+Boolean BAD_AA3 = false;
+Boolean BAD_AA4 = false;
+Boolean BAD_AA5 = false;
+Boolean BAD_AA6 = false;
 
 void keyPressed() {
   switch (key) {
@@ -46,6 +52,51 @@ void keyPressed() {
     break;
   case '0':
     g_current_file = new String("i9.cli");
+    interpreter();
+    break;
+  case 'a':
+    BAD_AA1 = true;
+    BAD_AA2 = false;
+    interpreter();
+    break;
+  case 'b':
+    BAD_AA1 = true;
+    BAD_AA2 = true;
+    interpreter();
+    break;
+  case 'c':
+    BAD_AA1 = false;
+    BAD_AA2 = false;
+    interpreter();
+    break;
+  case 'd':
+    BAD_AA1 = true;
+    BAD_AA2 = true;
+    BAD_AA3 = true;
+    interpreter();
+    break;
+  case 'e':
+    BAD_AA1 = true;
+    BAD_AA2 = true;
+    BAD_AA3 = true;
+    BAD_AA4 = true;
+    interpreter();
+    break;
+  case 'f':
+    BAD_AA1 = true;
+    BAD_AA2 = true;
+    BAD_AA3 = true;
+    BAD_AA4 = true;
+    BAD_AA5 = true;
+    interpreter();
+    break;
+  case 'g':
+    BAD_AA1 = true;
+    BAD_AA2 = true;
+    BAD_AA3 = true;
+    BAD_AA4 = true;
+    BAD_AA5 = true;
+    BAD_AA6 = true;
     interpreter();
     break;
   }
@@ -154,7 +205,7 @@ void interpreter() {
 }
 
 void setup() {
-  size(300, 300);
+  size(768, 768);
   noStroke();
   colorMode(RGB, 1.0);
   background(0, 0, 0);
@@ -182,7 +233,7 @@ void shootrays() {
   }
 
   // some extra anti-aliasing and convolution work im trying
-  if (false)
+  if (BAD_AA1)
     for (int x = 6; x < width - 6; x++) {
       for (int y = 6; y < height - 6; y++) {
         color c1 = get(x - 1, y - 1);
@@ -198,17 +249,17 @@ void shootrays() {
         if (c1 != c9 || c2 != c9 || c3 != c9 || c4 != c9 || c5 != c9 ||
             c6 != c9 || c7 != c9 || c8 != c9) {
 
-          /*
+        /*
         if (c1 != g_background &&
-           c2 != g_background &&
-           c3 != g_background &&
-           c4 != g_background &&
-           c5 != g_background &&
-           c6 != g_background &&
-           c7 != g_background &&
-           c8 != g_background &&
-           c9 != g_background) break;
-           */
+            c2 != g_background &&
+            c3 != g_background &&
+            c4 != g_background &&
+            c5 != g_background &&
+            c6 != g_background &&
+            c7 != g_background &&
+            c8 != g_background &&
+            c9 != g_background) break;
+         */
 
           if (c8 != c9 && true)
             set(x, y,
@@ -242,127 +293,127 @@ void shootrays() {
                       (blue(c5) + blue(c6) + blue(c7) + blue(c8) + blue(c9)) /
                           5));
 
-          /*
-        if (c4 != c9 && random(2) > 1)
-           set(x+1, y-1, color(
-           (red(c1) + red(c2) + red(c3)  +
-           red(c4) + red(c5) + red(c6)  +
-           red(c7) + red(c8) + red(c9)) / 9,
+          if (BAD_AA2) {
+            if (c4 != c9 && random(2) > 1)
+              set(x + 1, y - 1,
+                  color((red(c1) + red(c2) + red(c3) + red(c4) + red(c5) +
+                         red(c6) + red(c7) + red(c8) + red(c9)) /
+                            9,
 
-           (green(c1) + green(c2) + green(c3)  +
-           green(c4) + green(c5) + green(c6)  +
-           green(c7) + green(c8) + green(c9)) / 9,
+                        (green(c1) + green(c2) + green(c3) + green(c4) +
+                         green(c5) + green(c6) + green(c7) + green(c8) +
+                         green(c9)) /
+                            9,
 
-           (blue(c1) + blue(c2)  + blue(c3)  +
-           blue(c4) + blue(c5)  + blue(c6)  +
-           blue(c7) + blue(c8)  + blue(c9)) / 9));
+                        (blue(c1) + blue(c2) + blue(c3) + blue(c4) + blue(c5) +
+                         blue(c6) + blue(c7) + blue(c8) + blue(c9)) /
+                            9));
 
+            if (c3 != c9 && random(2) > 1)
+              set(x - 1, y + 1,
+                  color((red(c1) + red(c2) + red(c3) + red(c4) + red(c5) +
+                         red(c6) + red(c7) + red(c8) + red(c9)) /
+                            9,
 
+                        (green(c1) + green(c2) + green(c3) + green(c4) +
+                         green(c5) + green(c6) + green(c7) + green(c8) +
+                         green(c9)) /
+                            9,
 
-           if (c3 != c9 && random(2) > 1)
-           set(x-1, y+1, color(
-           (red(c1) + red(c2) + red(c3)  +
-           red(c4) + red(c5) + red(c6)  +
-           red(c7) + red(c8) + red(c9)) / 9,
+                        (blue(c1) + blue(c2) + blue(c3) + blue(c4) + blue(c5) +
+                         blue(c6) + blue(c7) + blue(c8) + blue(c9)) /
+                            9));
 
-           (green(c1) + green(c2) + green(c3)  +
-           green(c4) + green(c5) + green(c6)  +
-           green(c7) + green(c8) + green(c9)) / 9,
+            if (c2 != c9 && random(2) > 1)
+              set(x + 1, y + 1,
+                  color((red(c1) + red(c2) + red(c3) + red(c4) + red(c5) +
+                         red(c6) + red(c7) + red(c8) + red(c9)) /
+                            9,
 
-           (blue(c1) + blue(c2)  + blue(c3)  +
-           blue(c4) + blue(c5)  + blue(c6)  +
-           blue(c7) + blue(c8)  + blue(c9)) / 9));
+                        (green(c1) + green(c2) + green(c3) + green(c4) +
+                         green(c5) + green(c6) + green(c7) + green(c8) +
+                         green(c9)) /
+                            9,
 
+                        (blue(c1) + blue(c2) + blue(c3) + blue(c4) + blue(c5) +
+                         blue(c6) + blue(c7) + blue(c8) + blue(c9)) /
+                            9));
 
-           if (c2 != c9&& random(2) > 1)
-           set(x+1, y+1, color(
-           (red(c1) + red(c2) + red(c3)  +
-           red(c4) + red(c5) + red(c6)  +
-           red(c7) + red(c8) + red(c9)) / 9,
+            if (c1 != c9 && random(2) > 1)
+              set(x - 1, y - 1,
+                  color((red(c1) + red(c2) + red(c3) + red(c4) + red(c5) +
+                         red(c6) + red(c7) + red(c8) + red(c9)) /
+                            9,
 
-           (green(c1) + green(c2) + green(c3)  +
-           green(c4) + green(c5) + green(c6)  +
-           green(c7) + green(c8) + green(c9)) / 9,
+                        (green(c1) + green(c2) + green(c3) + green(c4) +
+                         green(c5) + green(c6) + green(c7) + green(c8) +
+                         green(c9)) /
+                            9,
 
-           (blue(c1) + blue(c2)  + blue(c3)  +
-           blue(c4) + blue(c5)  + blue(c6)  +
-           blue(c7) + blue(c8)  + blue(c9)) / 9));
+                        (blue(c1) + blue(c2) + blue(c3) + blue(c4) + blue(c5) +
+                         blue(c6) + blue(c7) + blue(c8) + blue(c9)) /
+                            9));
 
+            if (c8 != c9 && BAD_AA3)
+              set(x + 1, y,
+                  color((red(c1) + red(c2) + red(c3) + red(c4) + red(c5) +
+                         red(c6) + red(c7) + red(c8) + red(c9)) /
+                            9,
 
-           if (c1 != c9&& random(2) > 1)
-           set(x-1, y-1, color(
-           (red(c1) + red(c2) + red(c3)  +
-           red(c4) + red(c5) + red(c6)  +
-           red(c7) + red(c8) + red(c9)) / 9,
+                        (green(c1) + green(c2) + green(c3) + green(c4) +
+                         green(c5) + green(c6) + green(c7) + green(c8) +
+                         green(c9)) /
+                            9,
 
-           (green(c1) + green(c2) + green(c3)  +
-           green(c4) + green(c5) + green(c6)  +
-           green(c7) + green(c8) + green(c9)) / 9,
+                        (blue(c1) + blue(c2) + blue(c3) + blue(c4) + blue(c5) +
+                         blue(c6) + blue(c7) + blue(c8) + blue(c9)) /
+                            9));
 
-           (blue(c1) + blue(c2)  + blue(c3)  +
-           blue(c4) + blue(c5)  + blue(c6)  +
-           blue(c7) + blue(c8)  + blue(c9)) / 9));
+            if (c7 != c9 && BAD_AA4)
+              set(x - 1, y,
+                  color((red(c1) + red(c2) + red(c3) + red(c4) + red(c5) +
+                         red(c6) + red(c7) + red(c8) + red(c9)) /
+                            9,
 
+                        (green(c1) + green(c2) + green(c3) + green(c4) +
+                         green(c5) + green(c6) + green(c7) + green(c8) +
+                         green(c9)) /
+                            9,
 
+                        (blue(c1) + blue(c2) + blue(c3) + blue(c4) + blue(c5) +
+                         blue(c6) + blue(c7) + blue(c8) + blue(c8)) /
+                            9));
 
-           if (c8 != c9&& false)
-           set(x+1, y, color(
-           (red(c1) + red(c2) + red(c3)  +
-           red(c4) + red(c5) + red(c6)  +
-           red(c7) + red(c8) + red(c9)) / 9,
+            if (c5 != c9 && BAD_AA5)
+              set(x, y - 1,
+                  color((red(c1) + red(c2) + red(c3) + red(c4) + red(c5) +
+                         red(c6) + red(c7) + red(c8) + red(c9)) /
+                            9,
 
-           (green(c1) + green(c2) + green(c3)  +
-           green(c4) + green(c5) + green(c6)  +
-           green(c7) + green(c8) + green(c9)) / 9,
+                        (green(c1) + green(c2) + green(c3) + green(c4) +
+                         green(c5) + green(c6) + green(c7) + green(c8) +
+                         green(c9)) /
+                            9,
 
-           (blue(c1) + blue(c2)  + blue(c3)  +
-           blue(c4) + blue(c5)  + blue(c6)  +
-           blue(c7) + blue(c8)  + blue(c9)) / 9));
+                        (blue(c1) + blue(c2) + blue(c3) + blue(c4) + blue(c5) +
+                         blue(c6) + blue(c7) + blue(c8) + blue(c9)) /
+                            9));
 
+            if (c6 != c9 && BAD_AA6)
+              set(x, y + 1,
+                  color((red(c1) + red(c2) + red(c3) + red(c4) + red(c5) +
+                         red(c6) + red(c7) + red(c8) + red(c9)) /
+                            9,
 
-           if (c7 != c9&& false)
-           set(x-1, y, color(
-           (red(c1) + red(c2) + red(c3)  +
-           red(c4) + red(c5) + red(c6)  +
-           red(c7) + red(c8) + red(c9)) / 9,
+                        (green(c1) + green(c2) + green(c3) + green(c4) +
+                         green(c5) + green(c6) + green(c7) + green(c8) +
+                         green(c9)) /
+                            9,
 
-           (green(c1) + green(c2) + green(c3)  +
-           green(c4) + green(c5) + green(c6)  +
-           green(c7) + green(c8) + green(c9)) / 9,
-
-           (blue(c1) + blue(c2)  + blue(c3)  +
-           blue(c4) + blue(c5)  + blue(c6)  +
-           blue(c7) + blue(c8)  + blue(c8)) / 9));
-
-
-           if (c5 != c9&& false)
-           set(x, y-1, color(
-           (red(c1) + red(c2) + red(c3)  +
-           red(c4) + red(c5) + red(c6)  +
-           red(c7) + red(c8) + red(c9)) / 9,
-
-           (green(c1) + green(c2) + green(c3)  +
-           green(c4) + green(c5) + green(c6)  +
-           green(c7) + green(c8) + green(c9)) / 9,
-
-           (blue(c1) + blue(c2)  + blue(c3)  +
-           blue(c4) + blue(c5)  + blue(c6)  +
-           blue(c7) + blue(c8)  + blue(c9)) / 9));
-
-           if (c6 != c9&& false)
-           set(x, y+1, color(
-           (red(c1) + red(c2) + red(c3)  +
-           red(c4) + red(c5) + red(c6)  +
-           red(c7) + red(c8) + red(c9)) / 9,
-
-           (green(c1) + green(c2) + green(c3)  +
-           green(c4) + green(c5) + green(c6)  +
-           green(c7) + green(c8) + green(c9)) / 9,
-
-           (blue(c1) + blue(c2)  + blue(c3)  +
-           blue(c4) + blue(c5)  + blue(c6)  +
-           blue(c7) + blue(c8)  + blue(c9)) / 9));
-           */
+                        (blue(c1) + blue(c2) + blue(c3) + blue(c4) + blue(c5) +
+                         blue(c6) + blue(c7) + blue(c8) + blue(c9)) /
+                            9));
+          }
         }
       }
     }
